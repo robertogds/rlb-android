@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <string name="cities">Cities</string>
+	<string name="address">Address</string>
+	<string name="room">Room</string>
+	<string name="regime">Regime</string>
     <string name="countries">Countries</string>
     <string name="errorHappened">An error has occurred</string>
     <string name="errorBooking">An error has occurred\nWe received an incorrect response so we don't know if your booking has been completed. Please contact with help@reallylatebooking.com</string>
@@ -46,6 +49,7 @@
 	<string name="adviceCard">We will not charge your credit card, as you will pay the hotel directly for your stay.\nYou can save your card for future purchases.</string>
 	<string name="noRefundable">This reservation is non-refundable</string>	
 	<string name="booking">Booking</string>
+	<string name="bookingNumber">Booking Number</string>
 	<string name="bookingBlueButtonText">book it</string>
 	<string name="mustUser">You must be logged in to do that. Go to Profile tab and login or sign up</string>
 	<string name="selectCardType">Select Card Type</string>
@@ -205,4 +209,11 @@
 	<string name="zaragoza">Saragossa</string>
 	<string name="main_cities">Main Cities</string>
 	<string name="more_cities">More Cities</string>
+	<string name="bookingData">Booking Data</string>
+	<string name="clientData">Client Data</string>
+	<string name="remember">Remember</string>
+	<string name="bookPaid">RLB will charge your credit card. You should not make any payment at the hotel</string>
+	<string name="breakfastYes">Breakfast Included</string>
+	<string name="breakfastNo">Breakfast NOT Included</string>
+	<string name="doubleRoom">Double</string>
 </resources>

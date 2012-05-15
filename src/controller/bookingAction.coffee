@@ -38,7 +38,7 @@ root.doBooking = () ->
     "creditCardType": root.cardTypeLabel.text
     "creditCard" : root.cardNumberText.value
     "creditCardName": root.cardNameText.value
-    "creditCardExpiry": root.expiresLabel.text
+    "creditCardExpiry": root.expireMonthText.value + '/' + root.expireYearText.value
     "creditCardCVC": root.cvcCodeText.value
     "bookingForEmail": root.bookingForEmail
     "bookingForFirstName": root.bookingForFirstName

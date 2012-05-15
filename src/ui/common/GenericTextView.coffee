@@ -5,7 +5,7 @@ class GenericTextView
 			backgroundImage: '/images/Texture.jpg'
 			borderWidth: 0
 			width: Ti.UI.FILL
-			height: Ti.UI.FILL
+			height: Ti.UI.SIZE
 			top: top
 		
 		@titleLabel = Titanium.UI.createLabel

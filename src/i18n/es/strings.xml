@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <string name="cities">Ciudades</string>
+	<string name="address">Dirección</string>
+	<string name="room">Habitación</string>
+	<string name="regime">Régimen</string>
     <string name="countries">Países</string>
     <string name="errorHappened">Se ha producido un error</string>
     <string name="errorBooking">Se ha producido un error\nHemos recibido una respuesta incorrecta de la central de reservas por lo que no podemos asegurar que la reserva se haya realizado con éxito. Por favor ponte en contacto con soporte@reallylatebooking.com para confirmar que la reserva es correcta.</string>
@@ -46,6 +49,7 @@
 	<string name="adviceCard">No haremos ningún cargo en tu tarjeta de crédito. La estancia la pagarás en el hotel.\nPuedes guardar los datos de tu tarjeta para futuras compras.</string>
     <string name="noRefundable">Recuerda que la reserva no es anulable.</string>	
 	<string name="booking">Reserva</string>
+	<string name="bookingNumber">Localizador</string>
 	<string name="bookingBlueButtonText">reservar</string>
 	<string name="mustUser">Debes estar registrado para poder hacer una reserva. Ve a la pestaña Perfil y entra en tu cuenta o regístrate</string>
 	<string name="selectCardType">Selecciona el tipo de tarjeta</string>
@@ -206,4 +210,11 @@
 	<string name="zaragoza">Zaragoza</string>
 	<string name="main_cities">Ciudades Principales</string>
 	<string name="more_cities">Más ciudades</string>
+	<string name="bookingData">Datos de la reserva</string>
+	<string name="clientData">Datos del cliente</string>
+	<string name="remember">Recuerda</string>
+	<string name="bookPaid">RLB realizará el cargo en tu tarjeta de crédito. No debes hacer ningún pago en el hotel</string>
+	<string name="breakfastYes">Desayuno incluido</string>
+	<string name="breakfastNo">Sólo alojamiento</string>
+	<string name="doubleRoom">Doble</string>
 </resources>
