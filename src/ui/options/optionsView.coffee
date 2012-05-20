@@ -26,6 +26,8 @@ versionLabel = Titanium.UI.createLabel
 versionLabel.addEventListener 'click', (e) ->
 	Ti.API.info 'Hace clic en version'
 	root.tabGroup.activeTab.open(root.testWindow,{animated:true})
+	Ti.API.info 'llama a paypal'
+	root.addPaypalButtonToWindow()
 	
 socialView = Titanium.UI.createView
   top: 270

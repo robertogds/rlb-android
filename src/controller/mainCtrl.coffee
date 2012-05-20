@@ -20,7 +20,7 @@ Ti.include(
 	'/js/staticCities.js'
 	'/js/staticOtherCities.js'
 	'/js/staticZones.js'
-	'/js/paypal.js'
+	'/js/zooz.js'
     '/js/gpsData.js'
 	'/js/fetchDeals.js'
     '/js/dateUtil.js'

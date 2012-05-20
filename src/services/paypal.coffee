@@ -1,95 +1,61 @@
 root.paypal = require("ti.paypal")
+u = Ti.Android != undefined ? 'dp' : 0
+Ti.API.info 'Carga PAYPAL'
 
-root.addButtonToWindow = (win) ->
+root.addPaypalButtonToWindow = () ->
+	Ti.API.info '**** Entra en Paypal'
 	if (button)
-		win.remove(button)
+		root.testWindow.remove(button)
 		button = null
 	
-	button = Paypal.createPaypalButton
-		width: 194 + u, height: 37 + u
-		buttonStyle: Paypal.BUTTON_194x37
-		bottom: 50 + u
-		language: 'en_US'
-		appID: 'ZBKPEMRSSMVBL' 
-		paypalEnvironment: Paypal.PAYPAL_ENV_SANDBOX
+	button = root.paypal.createPaypalButton
+		width: 194 
+		height: 37
+		buttonStyle: root.paypal.BUTTON_194x37
+		bottom: 50
+		language: 'es_ES'
+		appID: 'ZBKPEMRSSMVBL'
+		paypalEnvironment: root.paypal.PAYPAL_ENV_LIVE
 		#Sandbox, None or Live
 		feePaidByReceiver: false
-		#This will only be applied when the transaction type is Personal
 		enableShipping: false
-		#Whether or not to select/send shipping information
+		payment:
+			paymentType: root.paypal.PAYMENT_TYPE_SERVICE 
+			subtotal: 8
+			tax: 0
+			shipping: 0
+			currency: 'EUR'
+			recipient: 'hola@iipir.com'
+			customID: new Date().getTime()
+			invoiceItems: [
+				{ name: 'Hotel PEPE', totalPrice: 8, itemPrice: 2, itemCount: 1 }
+				]
+			ipnUrl: 'http://www.appcelerator.com/'
+			merchantName: 'IIPIR Software Development SL',
+			memo: 'ReallyLateBooking - Same Day Hotel Bookings'
+	
+	button.addEventListener 'paymentCancelled', (e) ->
+		text = 'Payment Cancelled.'
+		Ti.API.info text
+		root.addPaypalButtonToWindow()
+	
+	button.addEventListener 'paymentSuccess', (e) ->
+		text = 'Payment Success.  TransactionID: ' + e.transactionID + ', Reloading...'
+		Ti.API.info text
+		root.addPaypalButtonToWindow()
+	
+	button.addEventListener 'paymentError', (e) ->
+		text = 'Payment Error,  errorCode: ' + e.errorCode + ', errorMessage: ' + e.errorMessage
+		Ti.API.info text
+		root.addPaypalButtonToWindow()
+	
+	button.addEventListener 'buttonDisplayed', () ->
+		text = 'The button was displayed!'
+		Ti.API.info text
 		
-		advancedPayment: { // The payment itself
-            payments: [
-                {
-                    isPrimary: true, // Mark this as the primary vendor; this marks this as a chain payment.
-                    merchantName: 'Primary Vendor',
-                    paymentType: Paypal.PAYMENT_TYPE_SERVICE, // The type of payment
-                    paymentSubtype: Paypal.PAYMENT_SUBTYPE_DONATIONS, // The subtype of the payment; you must be authorized for this by Paypal!
-                    subtotal: 13, // The total cost of the order, excluding tax and shipping
-                    tax: 0,
-                    shipping: 0,
-                    recipient: '<<<YOUR RECIPIENT HERE>>>',
-                    customID: 'anythingYouWant',
-                    invoiceItems: [
-                        { name: 'Shoes', totalPrice: 8, itemPrice: 2, itemCount: 4 },
-                        { name: 'Hats', totalPrice: 2, itemPrice: 0.5, itemCount: 4 },
-                        { name: 'Coats', totalPrice: 3, itemPrice: 1, itemCount: 3 }
-                    ]
-                },
-                {
-                    merchantName: 'Vendor 1',
-                    paymentType: Paypal.PAYMENT_TYPE_SERVICE, // The type of payment
-                    paymentSubtype: Paypal.PAYMENT_SUBTYPE_DONATIONS, // The subtype of the payment; you must be authorized for this by Paypal!
-                    subtotal: 10, // The total cost of the order, excluding tax and shipping
-                    tax: 0,
-                    shipping: 0,
-                    recipient: '<<<YOUR RECIPIENT HERE>>>',
-                    customID: 'anythingYouWant',
-                    invoiceItems: [
-                        { name: 'Shoes', totalPrice: 8, itemPrice: 2, itemCount: 4 },
-                        { name: 'Hats', totalPrice: 2, itemPrice: 0.5, itemCount: 4 }
-                    ]
-                },
-                {
-                    merchantName: 'Vendor 2',
-                    paymentType: Paypal.PAYMENT_TYPE_SERVICE, // The type of payment
-                    paymentSubtype: Paypal.PAYMENT_SUBTYPE_DONATIONS, // The subtype of the payment; you must be authorized for this by Paypal!
-                    subtotal: 3, // The total cost of the order, excluding tax and shipping
-                    tax: 0,
-                    shipping: 0,
-                    recipient: '<<<YOUR RECIPIENT HERE>>>',
-                    customID: 'anythingYouWant',
-                    invoiceItems: [
-                        { name: 'Coats', totalPrice: 3, itemPrice: 1, itemCount: 3 }
-                    ]
-                }
-            ],
-            ipnUrl: 'http://www.appcelerator.com/',
-            currency: 'USD',
-            memo: 'For the orphans and widows in the world!'
-        }
-    });
-
-    button.addEventListener('paymentCancelled', function (e) {
-        status.text = 'Payment Cancelled.';
-        // The button should only be used once; so after a payment is cancelled, succeeds, or errors, we must redisplay it.
-        addButtonToWindow();
-    });
-    button.addEventListener('paymentSuccess', function (e) {
-        status.text = 'Payment Success.  TransactionID: ' + e.transactionID + ', Reloading...';
-        // The button should only be used once; so after a payment is cancelled, succeeds, or errors, we must redisplay it.
-        addButtonToWindow();
-    });
-    button.addEventListener('paymentError', function (e) {
-        status.text = 'Payment Error,  errorCode: ' + e.errorCode + ', errorMessage: ' + e.errorMessage;
-        // The button should only be used once; so after a payment is cancelled, succeeds, or errors, we must redisplay it.
-        addButtonToWindow();
-    });
-
-    button.addEventListener('buttonDisplayed', function () {
-        status.text = 'The button was displayed!';
-    });
-    button.addEventListener('buttonError', function () {
-        status.text = 'The button failed to display!';
-    });
-    win.add(button);
+	button.addEventListener 'buttonError', (e) ->
+		text = 'The button failed to display!'
+		Ti.API.info text + JSON.stringify(e)
+		
+	root.testWindow.add(button)
+	
