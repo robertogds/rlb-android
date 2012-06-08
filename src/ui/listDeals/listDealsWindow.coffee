@@ -6,6 +6,3 @@ Ti.include(
   '/js/listDealsTable.js'
   '/js/noDealsView.js'
 )
-
-if (Titanium.Platform.name isnt 'android')
-  Ti.include('/js/pullRefresh.js')

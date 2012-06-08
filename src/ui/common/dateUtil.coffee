@@ -1,3 +1,8 @@
+root.formatDate = () ->
+  datestr = String.formatDate(new Date())
+  timestr = String.formatTime(new Date())
+  return datestr + ' ' + timestr
+
 root.getDayOfWeekString = (thisDate)->
   thisDay = thisDate.getDay()
   switch thisDay
@@ -39,4 +44,4 @@ root.getLocaleDateString = (thisDate)->
     when 8 then return L('sep') + ' ' + thisDate.getDate() + ', ' + thisDate.getFullYear() 
     when 9 then return L('oct') + ' ' + thisDate.getDate() + ', ' + thisDate.getFullYear() 
     when 10 then return L('nov') + ' ' + thisDate.getDate() + ', ' + thisDate.getFullYear() 
-    when 11 then return L('dec')  + ' ' + thisDate.getDate() + ', ' + thisDate.getFullYear() 
+    when 11 then return L('dec')  + ' ' + thisDate.getDate() + ', ' + thisDate.getFullYear()

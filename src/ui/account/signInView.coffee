@@ -16,9 +16,9 @@ loginLabel = Titanium.UI.createLabel
 		fontSize: 14
 		fontWeight: 'bold'
 	height: 30
-	top: 75
+	top: 65
 
-signInButton = new root.GenericButton(220,Ti.Locale.getString('signIn')).button
+signInButton = new root.GenericButton(210,Ti.Locale.getString('signIn')).button
 
 signInButton.addEventListener 'click', (e) ->
 	email = root.emailText.value
@@ -31,7 +31,7 @@ signInButton.addEventListener 'click', (e) ->
 	else
 		Ti.UI.createAlertDialog({title:'ReallyLateBooking',message:L('reviewData') + validate}).show()
 
-root.rememberPassView = new root.Generic2RowsView(300,L('IForgotPassword'),L('needAccount'))
+root.rememberPassView = new root.Generic2RowsView(290,L('IForgotPassword'),L('needAccount'))
 root.rememberPassView.table.height = 44
 
 root.rememberPassView.label1.addEventListener 'click', (e) ->
@@ -47,10 +47,9 @@ root.rememberPassView.label2.addEventListener 'click', (e) ->
 root.showSignInView = (source) ->
 	if source is 'booking'
 		root.rememberPassView.table.height = 88
-		root.tabGroup.activeTab.open(root.signInWindow,{animated:true})
 	else
 		root.rememberPassView.table.height = 44
-		root.tabGroup.activeTab.open(root.signInWindow,{animated:true})
+	root.tabGroup.activeTab.open(root.signInWindow,{animated:true})
 
 root.signInView.add(root.facebookLoginButton)
 root.signInView.add(loginLabel)

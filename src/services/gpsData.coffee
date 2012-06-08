@@ -14,7 +14,11 @@ getNearCity = (lat,lon) ->
 	R = 6371
 	lowDistance = 1000
 	nearCity = undefined
-	allCities = root.staticCities.concat root.staticOtherCities
+	staticCities = root.staticCities.concat root.staticOtherCities
+	if root.listCities.length > staticCities.length
+		allCities = root.listCities
+	else
+		allCities = staticCities
 	for city in allCities
 		Ti.API.info '+++ GPS Leyendo ' + city.name
 		cityLatRad = city.latitude * Math.PI / 180
@@ -29,6 +33,7 @@ getNearCity = (lat,lon) ->
 			nearCity = city
 			lowDistance = distance
 	if lowDistance < 100 and nearCity isnt undefined
+		Ti.API.info 'START******* Encontrada Ciudad con GPS'
 		Ti.API.info '+++ GPS Encontrada NEARCITY = ' + nearCity.name
 		root.loadDeals(nearCity)
 	else 
@@ -47,24 +52,18 @@ translateErrorCode = (code) ->
 		when Ti.Geolocation.ERROR_REGION_MONITORING_DELAYED then return "Region monitoring setup delayed"
 
 root.initializeGPS = () ->
+	Ti.API.info 'START******* Entra en initializeGPS'
 	root.showLoading(root.citiesWindow,'Getting GPS Location')
 	root.isGPS = true
 	if Titanium.Geolocation.locationServicesEnabled is false
 		Ti.API.info 'Entra en geo off'
 		Titanium.UI.createAlertDialog({title:'ReallyLateBooking',message:L('geoOff')}).show()
 		return root.hideLoading(root.citiesWindow)
-	if root.isAndroid isnt true
-		authorization = Titanium.Geolocation.locationServicesAuthorization
-		if authorization is Titanium.Geolocation.AUTHORIZATION_DENIED
-			Ti.UI.createAlertDialog({title:'ReallyLateBooking',message:L('youGeoDisallow')}).show()
-			return root.hideLoading(root.citiesWindow)
-		else if authorization is Titanium.Geolocation.AUTHORIZATION_RESTRICTED
-			Ti.UI.createAlertDialog({title:'ReallyLateBooking',message:L('systemGeoDisallow')}).show()
-			return root.hideLoading(root.citiesWindow)
 	root.getGPSData()	
 
 
 root.getGPSData = () ->
+	Ti.API.info 'START******* Entra en getGPSData'
 	Titanium.Geolocation.accuracy = Titanium.Geolocation.ACCURACY_HIGH
 	Titanium.Geolocation.distanceFilter = 10
 	Titanium.Geolocation.getCurrentPosition (e) ->
@@ -73,6 +72,7 @@ root.getGPSData = () ->
 			Ti.API.info("Code translation: "+translateErrorCode(e.code))
 			Ti.UI.createAlertDialog({title:'ReallyLateBooking',message:L('geoOff')}).show()
 			root.hideLoading(root.citiesWindow)
+			Ti.API.info 'START ******* ERROR en getGPSData'
 			return
 		longitude = e.coords.longitude
 		latitude = e.coords.latitude
@@ -87,4 +87,5 @@ root.getGPSData = () ->
 		getNearCity(latitude,longitude)
 		Titanium.API.info('geo - current location: ' + new Date(timestamp) + ' long ' + longitude + ' lat ' + latitude + ' accuracy ' + accuracy)
 		locationAdded = true
+		Ti.API.info 'START******* Termina getGPSData'
 		

@@ -1,20 +1,25 @@
 root.xhrRegister = Titanium.Network.createHTTPClient()
 
 root.xhrRegister.onload = (e) ->
-	root.hideLoading(root.newAccountWindow)
+	root.hideLoading()
+	Ti.API.info 'USER: ' + this.responseText
 	response = JSON.parse(this.responseText)
 	if response.status is 200
+		root.hideLoading()
 		root.user = response.content
 		Titanium.App.Properties.setString("user",JSON.stringify(root.user))
 		root.loadAccountLabels()
 		root.newAccountWindow.close()
-		root.editAccountWindow.close()		
+		root.editAccountWindow.close()
+		if root.tabGroup.activeTab.id is 'deals'
+			root.showConfirmBooking()		
 	else
 		Ti.API.error response.detail
 		Ti.UI.createAlertDialog({title:'ReallyLateBooking',message:'Error: ' + response.detail}).show()
 
 root.xhrRegister.onerror = (e) ->
-	root.hideLoading(root.newAccountWindow)
+	Ti.API.info 'Entra en error register'
+	root.hideLoading()
 	root.showError()
 	Ti.API.error(e)
 

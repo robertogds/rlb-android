@@ -4,6 +4,29 @@ root.priceView = Titanium.UI.createView
   top: 265
   height: 65
 
+root.shareTwitterImage = Titanium.UI.createImageView 
+	top: 10
+	width: 35
+	height: 35
+	left: 170
+	image: '/icons/twitter_icon.png'
+
+root.shareFacebookImage = Titanium.UI.createImageView 
+	top: 10
+	width: 35
+	height: 35
+	left: 220
+	image: '/icons/facebook_icon.png'
+
+
+root.shareEmailImage = Titanium.UI.createImageView 
+	top: 10
+	width: 35
+	height: 35
+	left: 270
+	image: '/icons/mail_icon.png'
+
+
 barPriceView = Titanium.UI.createView
 	backgroundColor: 'black'
 	opacity: '0.8'
@@ -22,6 +45,9 @@ root.oneDealPriceLabel = Titanium.UI.createLabel
     fontFamily:'Helvetica Neue'
   #top: '10'
   left: 15
+
+root.regimenPriceLabel = new root.GenericSubtitleLabel(50,180,'Desayuno Incluído').label
+root.regimenPriceLabel.font.fontsize = 10
 
 root.oneDealNormalPriceLabel = Titanium.UI.createLabel
   width: 77
@@ -52,25 +78,10 @@ antesLabel = Titanium.UI.createLabel
   height: 25
   top: 10
 
-root.bookingButtonLabel = Titanium.UI.createLabel
-	backgroundImage: '/images/booking_background.png'
-	borderWidth:1
-	borderColor: '#0098cb'
-	color: '#000'
-	width: 120
-	height: 35
-	borderRadius: 5
-	backgroundColor: '#0098cb'
-	text: L('bookingBlueButtonText') + '     '
-	textAlign: 'center'
-	font:
-		fontSize: 18
-		fontWeight: 'bold'
-		fontFamily:'Helvetica Neue'
-	#top: '30%'
-	left: 180
+root.bookingButtonLabel = new root.GenericPayButton(350,L('bookingBlueButtonText')).label
 
 root.bookingButtonLabel.addEventListener 'click', (e) ->
+	root.showLoading(root.oneDealWindow)
 	root.showBookingView() 
 
 root.soldOutLabel = Titanium.UI.createLabel
@@ -87,11 +98,15 @@ root.soldOutLabel = Titanium.UI.createLabel
 	#top: '40%'
 	left: '60%'
 
+root.priceView.add(root.shareFacebookImage)
+root.priceView.add(root.shareTwitterImage)
+root.priceView.add(root.shareEmailImage)
 root.priceView.add(root.oneDealPriceLabel)
 root.priceView.add(root.oneDealNormalPriceLabel)
 root.priceView.add(sepVertView)
 root.priceView.add(antesLabel)
+root.priceView.add(root.regimenPriceLabel)
 
-root.priceView.add(root.bookingButtonLabel)
+#root.priceView.add(root.bookingButtonLabel)
 root.priceView.add(root.soldOutLabel)
 root.soldOutLabel.hide()

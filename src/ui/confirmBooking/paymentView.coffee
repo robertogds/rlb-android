@@ -18,7 +18,7 @@ cardLabel = Titanium.UI.createLabel
 
 cardTypesIcon = Titanium.UI.createImageView
 	image:'/images/cardTypes200.jpg'
-	top: 15
+	top: 200
 
 root.cardNumberText = Titanium.UI.createTextField
 	backgroundColor: '#fff'
@@ -28,7 +28,7 @@ root.cardNumberText = Titanium.UI.createTextField
 	hintText: L('number')
 	clearOnEdit: false
 	paddingLeft: 10
-	top: 80
+	top: 15
 	keyboardType: Titanium.UI.KEYBOARD_NUMBERS_PUNCTUATION 
 	returnKeyType: Titanium.UI.RETURNKEY_NEXT
 	maxLength: 16
@@ -41,7 +41,7 @@ root.expireMonthText = Titanium.UI.createTextField
 	height: 44
 	width: 60
 	left: 20
-	top: 138
+	top: 73
 	color:'#336699'
 	hintText: 'MM'
 	paddingLeft: 10
@@ -58,7 +58,7 @@ root.expireYearText = Titanium.UI.createTextField
 	height: 44
 	width: 60
 	left: 95
-	top: 138
+	top: 73
 	color:'#336699'
 	hintText: L('expiresYear')
 	paddingLeft: 10
@@ -79,20 +79,20 @@ slashLabel = Titanium.UI.createLabel
 	font:
 		fontSize: 18
 		fontWeight: 'bold'
-	top: 138
+	top: 73
 	left: 77
 
 cvcIcon = Titanium.UI.createImageView
 	image:'/images/cvcCard.jpg'
 	left: 245
-	top: 144
+	top: 79
 
 root.cvcCodeText = Titanium.UI.createTextField
 	backgroundColor: '#fff'
 	height: 44
 	width: 65
 	left: 175
-	top: 138
+	top: 73
 	color:'#336699'
 	hintText: 'CVC'
 	paddingLeft: 10
@@ -109,7 +109,7 @@ root.cardNameText = Titanium.UI.createTextField
 	backgroundColor: '#fff'
 	width: '280'
 	height: '44'
-	top: 195
+	top: 130
 	color:'#336699'
 	hintText: L('cardName')
 	clearOnEdit: false
@@ -158,6 +158,6 @@ root.paymentView.add(root.cvcCodeText)
 root.paymentView.add(slashLabel)
 root.paymentView.add(cvcIcon)
 root.paymentView.add(savePaymentButton)
-root.paymentView.add(root.zoozButton)
+#root.paymentView.add(root.zoozButton)
 
 root.paymentWindow.add(root.paymentView)

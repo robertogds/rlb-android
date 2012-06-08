@@ -3,8 +3,8 @@ root.citiesTable = Titanium.UI.createTableView
 	backgroundColor: 'transparent'
 	separatorColor: 'transparent'
 	
-if Titanium.Platform.name is 'android'
-	root.citiesTable.setData([Ti.UI.createTableViewRow({title:'Loading...'})])
+
+root.citiesTable.setData([Ti.UI.createTableViewRow({title:'Loading...'})])
 
 root.citiesWindow.add(root.citiesTable)
 
@@ -50,8 +50,9 @@ for city in root.staticOtherCities
 		list[2] = undefined
 		list[3] = undefined	
 
-cityRow = new root.cityRow(list[1],list[2],list[3])
-otherCitiesSection.add(cityRow.row)
+root.cell['more'].inactiveView.visible = true
+#cityRow = new root.cityRow(list[1],list[2],list[3])
+#otherCitiesSection.add(cityRow.row)
 root.citiesData.push(mainCitiesSection)
 root.citiesData.push(otherCitiesSection)
 root.citiesTable.setData(root.citiesData)

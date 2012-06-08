@@ -54,3 +54,5 @@ root.facebookRegisterButton.addEventListener 'click', (e) ->
 	root.showLoading(root.newAccountWindow)
 	Titanium.Facebook.authorize()
 
+
+

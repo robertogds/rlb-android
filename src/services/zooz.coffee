@@ -1,4 +1,3 @@
-
 root.zoozButton = Ti.UI.createButton
 	title: "Purchase..."
 	height:50
@@ -9,12 +8,14 @@ root.zoozButton = Ti.UI.createButton
 root.zoozButton.addEventListener 'click',  (e) ->
 	Ti.API.info "payBtn clicked"
 	zoozmodule = require('com.zooz.ti')
+	number = 22.5
 	zoozmodule.doPayment
 		data:
-			amount: 22.5
-			currencyCode: "USD"
-			appKey: "0df397d3-8f7c-43d9-bf1e-61f2e255d0b1"
-			isSandbox: true
+			amount: number
+			currencyCode: "EUR"
+			appKey: "4b71ac79-9338-4cc0-91ad-220572fd54b3"
+			isSandbox: false
+			email: ''
 			
 		success: (data) ->
 			Ti.API.info 'Result success!'

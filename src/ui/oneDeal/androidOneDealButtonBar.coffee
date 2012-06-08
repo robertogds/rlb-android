@@ -78,7 +78,7 @@ infoTab.addEventListener 'click', (e) ->
 	root.oneDealWindow.remove root.oneDealView 
 	root.oneDealWindow.remove root.mapView
 	root.oneDealWindow.add root.infoDealTable
-	root.infoDealTable.setData(root.infoData)
+	#root.infoDealTable.setData(root.infoData)
 
 
 mapTab.addEventListener 'click', (e) ->
@@ -89,7 +89,6 @@ mapTab.addEventListener 'click', (e) ->
 	root.oneDealWindow.remove root.oneDealView
 	root.oneDealWindow.remove root.infoDealTable
 	root.oneDealWindow.add root.mapView
-
 
 photosTab.addEventListener 'click', (e) ->
 	photosTab.backgroundColor = '#333'

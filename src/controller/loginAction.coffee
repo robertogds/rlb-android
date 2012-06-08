@@ -11,10 +11,12 @@ root.xhrLogin.onload = (e) ->
 		root.loadAccountLabels()
 		root.signInWindow.close() 
 		if root.tabGroup.activeTab.id is 'deals'
-			root.showConfirmBooking()
+			root.fetchCredits()
+		else
+			root.fetchCreditsAsync()
 	else
 		Ti.UI.createAlertDialog({title:'ReallyLateBooking',message:'Error: ' + login.detail}).show()
-	root.hideLoading(root.signInView)
+	root.hideLoading()
 
 
 root.xhrLogin.onerror = (e) ->

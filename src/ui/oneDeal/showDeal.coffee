@@ -6,26 +6,22 @@ Ti.include(
   '/js/oneDealView.js'
 )
 root.showDealView = (deal) ->
+	#root.oneDealButtonBar.index = 0
 	Ti.API.info '======= DEAL ' + JSON.stringify(deal)
 	root.deal = deal
 	if deal.quantity is 0
-		root.priceView.remove(root.bookingButtonLabel)
+		root.oneDealView.remove(root.bookingButtonLabel)
 		root.priceView.add(root.soldOutLabel)
 		root.soldOutLabel.show()
 		root.bookingButtonLabel.hide()
 	else
-		root.priceView.add(root.bookingButtonLabel)
+		root.oneDealView.add(root.bookingButtonLabel)
 		root.priceView.remove(root.soldOutLabel)
 		root.soldOutLabel.hide()
 		root.bookingButtonLabel.show()
 	# Map
-	#root.mapView.removeAllAnnotations()
-	Ti.API.info 'Cargamos mapa con Latitude: ' + deal.latitude + ' Longitude: ' + deal.longitude + ' Name: ' + deal.hotelName + ' Address: ' + deal.address
+	#Ti.API.info 'Cargamos mapa con Latitude: ' + deal.latitude + ' Longitude: ' + deal.longitude + ' Name: ' + deal.hotelName + ' Address: ' + deal.address
 	root.createDealMap(deal)
-	#root.hotelAnnotation.latitude = deal.latitude
-	#root.hotelAnnotation.longitude = deal.longitude
-	#root.hotelAnnotation.title = deal.hotelName
-	#root.hotelAnnotation.subtitle = deal.address
 	
 	# one deal window
 	root.oneDealWindow.title = deal.hotelName 
@@ -36,19 +32,24 @@ root.showDealView = (deal) ->
 	root.oneDealAddressLabel.text = deal.address 
 	root.hotelAddressLabel.text = deal.address
 	root.hotelNameLabel.text = deal.hotelName
+	if root.deal.breakfastIncluded is true
+		root.regimenPriceLabel.text = L('breakfastYes')
+	else
+		root.regimenPriceLabel.text = L('breakfastNo')
 	#root.oneDealWindow.setTitleControl(root.titleView)
 	
 	root.shareTwitterImage.addEventListener 'click', (e) ->
 		#root.sharekit.share
 		#	title: 'ReallyLateBooking'
-		#	text: String.format(L('shareTwitter'),deal.hotelName,deal.city.name)
+		#	text: String.format(L('shareTwitterText'),deal.hotelName,deal.city.name)
 		#	sharer: 'Twitter'
+		root.shareToTwitter(L('shareTwitterText'))
 	
 	root.shareFacebookImage.addEventListener 'click', (e) ->
 		#root.sharekit.share
-			#title: 'ReallyLateBooking'
-			#text: String.format(L('shareFacebook'),deal.hotelName,deal.city.name)
-			#sharer: 'Facebook'
+		#	title: 'ReallyLateBooking'
+		#	text: String.format(L('shareFacebookText'),deal.hotelName,deal.city.name)
+		#	sharer: 'Facebook'
 		data = 
 			link: "http://www.reallylatebooking.com"
 			name: String.format(L('shareFacebook'),deal.hotelName,deal.city.name)
@@ -65,9 +66,8 @@ root.showDealView = (deal) ->
 	root.shareEmailImage.addEventListener 'click', (e) ->
 		emailDialog = Titanium.UI.createEmailDialog()
 		emailDialog.subject = L('shareEmailSubject')
-		emailDialog.messageBody = String.format(L('shareEmail'),deal.hotelName,deal.city.name)
+		emailDialog.messageBody = String.format(L('shareEmailText'),deal.hotelName,deal.city.name)
 		emailDialog.open()
-	
 		
 	# Load Images of the deal
 	root.image1.image = deal.image1
@@ -106,12 +106,13 @@ root.showDealView = (deal) ->
 	foodDrinkRow.add(foodDrinkView)
 	aroundRow.add(aroundView)
 		
-	root.infoData = []
-	root.infoData.push(detailRow)
-	root.infoData.push(hotelRow)
-	root.infoData.push(roomRow)
-	root.infoData.push(foodDrinkRow)
-	root.infoData.push(aroundRow)
+	infoData = []
+	infoData.push(detailRow)
+	infoData.push(hotelRow)
+	infoData.push(roomRow)
+	infoData.push(foodDrinkRow)
+	infoData.push(aroundRow)
+	root.infoDealTable.setData(infoData)
 	root.oneDealWindow.remove root.infoDealTable
 	root.oneDealWindow.remove root.mapView
 	root.oneDealWindow.add root.oneDealView
@@ -120,7 +121,7 @@ root.showDealView = (deal) ->
 		root.bookingForEmail = root.user.email
 		root.bookingForFirstName = root.user.firstName
 		root.bookingForLastName = root.user.lastName
-	
+	Ti.API.info '********* Entra con root.deal.priceDay2 = ' + root.deal.priceDay2
 	#if root.deal.priceDay2 > 0 
 	#	root.nightsRow.rightImage = '/images/blue_arrow.png'
 	#else 

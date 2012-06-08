@@ -38,4 +38,3 @@ root.showNewAccount = () ->
 	Ti.API.info 'Entra en shownew account'
 	root.tabGroup.activeTab.open(root.newAccountWindow,{animated:true})
 	Ti.API.info 'Sale de shownew account'
-

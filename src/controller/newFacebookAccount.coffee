@@ -13,8 +13,7 @@ root.xhrFacebookRegister.onload = (e) ->
 		root.facebookUser.rlbSecret = root.user.secret
 		root.facebookUser.rlbPassword = root.user.password
 		Ti.API.info response.content
-		root.hideLoading(root.newAccountWindow)
-		root.hideLoading(root.signInWindow)
+		root.hideLoading()
 		root.newAccountWindow.close()
 		root.signInWindow.close()
 		if root.tabGroup.activeTab.id is 'deals'

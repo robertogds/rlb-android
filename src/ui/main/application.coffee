@@ -1,18 +1,32 @@
 Titanium.UI.setBackgroundColor('black')
+root.footerView = Titanium.UI.createView(backgroundColor:'transparent',height:100)
+
+root.bgGradient =
+     type:'linear'
+     colors:[{color:'#07151d',position:0.1},{color:'#0d1e28',position:1.0}]
+
+root.bgGradientTitle =
+     type:'linear'
+     colors:[{color:'#1b3c50',position:0.1},{color:'#3c5f75',position:1.0}]
 
 # Application Windows
 root.citiesWindow = new root.GenericWindow(L('cities')).win
+root.citiesWindow.exitOnClose = true
 root.countriesWindow = new root.GenericWindow(L('countries')).win
 root.listDealsWindow = new root.GenericWindow('Madrid').win
 root.listDealsMapWindow = new root.GenericWindow(L('map')).win
 root.bookingsWindow = new root.GenericWindow(L('yourBookings')).win
+root.listCreditsWindow = new root.GenericWindow(L('creditsActivity')).win
 root.accountWindow = new root.GenericWindow(L('profile')).win
 root.oneDealWindow = new root.GenericWindow('').win
+root.oneDealWindow.tabBarHidden = true
 root.oneBookingWindow = new root.GenericWindow(L('booking')).win
 root.optionsWindow = new root.GenericWindow(L('options')).win
 root.imagesWindow = new root.GenericWindow(L('photos')).win
 root.newAccountWindow = new root.GenericWindow(L('newAccount')).win
+root.newAccountWindow.tabBarHidden = true
 root.editAccountWindow = new root.GenericWindow(L('editAccount')).win
+root.editAccountWindow.tabBarHidden = true
 root.confirmBookingWindow = new root.GenericWindow(L('orderSummary')).win
 root.supportWindow = new root.GenericWindow(L('userSupport')).win
 root.errorWindow = new root.GenericWindow('Error').win
@@ -27,8 +41,13 @@ root.bookingForWindow = new root.GenericWindow(L('bookingFor')).win
 root.nightsWindow = new root.GenericWindow(L('extraNights')).win
 root.why3Window = new root.GenericWindow('ReallyLateBooking').win
 root.signInWindow = new root.GenericWindow(L('signIn')).win
+root.signInWindow.tabBarHidden = true
 root.registerWindow = new root.GenericWindow(L('register')).win
 root.noDealsWindow = new root.GenericWindow('').win
+root.cobrarWindow = new root.GenericWindow('Cobrar').win
+root.creditsWindow = new root.GenericWindow(L('credits')).win
+root.inviteWindow = new root.GenericWindow(L('invite')).win
+root.allCitiesWindow = new root.GenericWindow(L('cities')).win
 
 
 root.imagesWindow.backButtonTitle = L('back')
@@ -40,39 +59,45 @@ root.tabGroup = Titanium.UI.createTabGroup
 	id:'tabGroup'
 
 root.dealsTab = Titanium.UI.createTab
+	pos: 0
 	id:'deals'
-	icon:'icons/icon_deal.png'
+	icon:'icons/ico_deals.png'
 	title:L('cities')
 	window: root.citiesWindow
   
-root.bookingTab = Titanium.UI.createTab
+root.bookingsTab = Titanium.UI.createTab
+	pos: 1
 	id: 'booking'
-	icon:'icons/icon_buy.png'
+	icon:'icons/ico_bookings.png'
 	title:L('bookings')
 	window: root.bookingsWindow
 
-    
-root.accountTab = Titanium.UI.createTab
-	id: 'account'
-	icon:'icons/icon_user.png'
-	title:L('profile')
-	window: root.accountWindow
+root.inviteTab = Titanium.UI.createTab
+	pos: 2
+	id: 'invite'
+	icon:'icons/ico_invite.png'
+	title:L('invite')
+	window: root.inviteWindow
+
+root.creditsTab = Titanium.UI.createTab
+	pos: 3
+	id: 'credits'
+	icon:'icons/ico_credits.png'
+	title:L('credits')
+	badge: undefined
+	window: root.creditsWindow
 
 root.optionsTab = Titanium.UI.createTab
+	pos: 4
 	id: 'options'
-	icon:'icons/icon_conf.png'
+	icon:'icons/ico_options.png'
 	title:L('options')
 	window: root.optionsWindow
 
 root.tabGroup.addTab(root.dealsTab)
-root.tabGroup.addTab(root.bookingTab)
-root.tabGroup.addTab(root.accountTab)
+root.tabGroup.addTab(root.bookingsTab)
+root.tabGroup.addTab(root.inviteTab)
+root.tabGroup.addTab(root.creditsTab)
 root.tabGroup.addTab(root.optionsTab)
 
-root.tabGroup.open()
-
-
-root.showError = (window) ->
-	root.errorWindow = window
-	window.add(root.errorView)
 

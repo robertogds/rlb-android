@@ -20,7 +20,8 @@ root.createDealMap = (deal) ->
 		root.oneDealWindow.remove root.mapView
 		root.oneDealWindow.add root.oneDealView
 		
-	subtitle = L('tonight') + ': ' + deal.salePriceCents + '€'
+	#subtitle = L('tonight') + ': ' + deal.salePriceCents + '€'
+	subtitle = deal.address
 	hotelAnnotation = new root.GenericMapAnnotation(deal.id,deal.latitude,deal.longitude,deal.hotelName,subtitle,mapButtonView).annotation
 	root.mapView.addAnnotation hotelAnnotation
 	region =

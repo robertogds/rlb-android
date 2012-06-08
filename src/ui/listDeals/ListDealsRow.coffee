@@ -2,9 +2,8 @@ class ListDealsRow
 	constructor: (deal) ->
 		textColor = "white"
 		@row = Ti.UI.createTableViewRow
-			title: deal.id
-			#[android] hasChild: true
-			#[android] rightImage: '/images/blue_arrow.png'
+			#hasChild: true
+			#rightImage: '/images/blue_arrow.png'
 			identionLevel: 200
 			height: 120
 			selectionStyle: 'none'
@@ -12,8 +11,9 @@ class ListDealsRow
 				type:'linear'
 				colors:[{color:'#07151d',position:0.1},{color:'#0d1e28',position:1.0}]
 			fontSize: 6
-			deal: deal
-			#color: 'red'	
+			deal: deal	
+			color: '#fff'
+			
 		image = Titanium.UI.createImageView
 			defaultImage: '/images/detalle_loading.jpg'
 			image: deal.mainImageBig
@@ -22,6 +22,7 @@ class ListDealsRow
 			width: 320
 			height: 120
 		@row.add(image)
+		
 		hotelBarLabel = Titanium.UI.createLabel
 			borderWidth: 0
 			backgroundColor: 'black'
@@ -31,7 +32,18 @@ class ListDealsRow
 			height: 20
 			width: 320
 			top: 0
-		@row.add(hotelBarLabel)		
+		@row.add(hotelBarLabel)
+		
+		root.breakfastIcon = Titanium.UI.createImageView
+			image: '/icons/breakfast.png'
+			top: 3
+			left: 215
+			width: 15
+			height: 12
+			
+		if deal.breakfastIncluded is true
+			@row.add(root.breakfastIcon)
+				
 		hotelLabel = Titanium.UI.createLabel
 			text: deal.hotelName
 			color: '#fff'
@@ -42,7 +54,8 @@ class ListDealsRow
 			height: 20
 			width: 250
 			top: 0
-		@row.add(hotelLabel)		
+		@row.add(hotelLabel)
+				
 		priceImage = Titanium.UI.createImageView
 			top: 0
 			image: '/images/price_basic.png'
@@ -51,6 +64,7 @@ class ListDealsRow
 			width: 71
 			height: 100
 		@row.add(priceImage)
+		
 		priceLabel = Titanium.UI.createLabel
 			text: deal.salePriceCents + "€"
 			color: textColor
@@ -64,6 +78,7 @@ class ListDealsRow
 			width: 80
 			top: 15
 		@row.add(priceLabel)
+		
 		antesLabel = Titanium.UI.createLabel
 			text: L('before')
 			color: '#eeeeee'
@@ -75,6 +90,7 @@ class ListDealsRow
 			width: 40
 			top: 40
 		@row.add(antesLabel)
+		
 		normalPriceLabel = Titanium.UI.createLabel
 			text: deal.priceCents + "€"
 			color: '#eeeeee'
@@ -88,6 +104,7 @@ class ListDealsRow
 			width: 35
 			top: 45
 		@row.add(normalPriceLabel)
+		
 		extraNightsLabel = Titanium.UI.createLabel
 			text: L('oneNight')
 			textAlign: "center"
@@ -107,6 +124,7 @@ class ListDealsRow
 		if deal.priceDay5 > 0
 			extraNightsLabel.text = L('stayFiveNights')		
 		@row.add(extraNightsLabel)
+		
 		roomTypeLabel = Titanium.UI.createLabel
 			width: 80
 			height: 20
@@ -118,7 +136,8 @@ class ListDealsRow
 				fontWeight: 'bold'
 				fontFamily:'Helvetica Neue'
 			top: 2
-			left: 241		
+			left: 241
+					
 		if deal.roomType is 'lujo'
 			if deal.roomTypeText is undefined or deal.roomTypeText is null or deal.roomTypeText.length < 2
 				roomTypeLabel.text = 'LUXURY'
@@ -126,6 +145,7 @@ class ListDealsRow
 			#roomTypeLabel.backgroundColor = "#e5e79d"
 			priceImage.image = "/images/price_luxury.png"
 			icon = '/images/yellow_arrow.png'
+			
 		if deal.roomType is 'elegante' 
 			if deal.roomTypeText is undefined or deal.rootmTypeText is null or deal.roomTypeText.length < 2
 				roomTypeLabel.text = 'ELEGANCE' 
@@ -133,15 +153,18 @@ class ListDealsRow
 			#roomTypeLabel.backgroundColor = "#c7bcd2"
 			priceImage.image = "/images/price_elegance.png"
 			icon = '/images/purple_arrow.png'
+			
 		if deal.roomType is 'confort' 
 			if deal.roomTypeText is undefined or deal.roomTypeText is null or deal.roomTypeText.length < 2
 				roomTypeLabel.text = 'BASIC'
 			else roomTypeLabel.text = deal.roomTypeText.toUpperCase()
 			#roomTypeLabel.backgroundColor = "#a3bfd4"
 			priceImage.image = "/images/price_basic.png"
-			icon = '/images/blue_arrow.png'		
+			icon = '/images/blue_arrow.png'
+					
 		@row.add(roomTypeLabel)
 		#@row.rightImage = icon
+		
 		soldOutView = Titanium.UI.createView
 			opacity: 0.6
 			backgroundColor: '#ffffff' 
@@ -149,6 +172,7 @@ class ListDealsRow
 			top: 0
 			height: 120
 			width: '125%'
+			
 		soldOutLabel = Titanium.UI.createLabel
 			borderWidth: 0
 			text: L('soldOut')
@@ -160,7 +184,9 @@ class ListDealsRow
 			height: 30
 			width: 160
 			top: 45
+			
 		soldOutView.add(soldOutLabel)
 		if deal.quantity is 0
 			@row.add(soldOutView)
+			
 root.listDealsRow = ListDealsRow

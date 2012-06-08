@@ -3,6 +3,7 @@ root.loadUser = () ->
 	if Titanium.App.Properties.hasProperty("user")
 		Ti.API.info 'Tiene user'
 		root.user = JSON.parse(Titanium.App.Properties.getString("user"))
+		#root.fetchCreditsAsync()
 	else if Titanium.Facebook.loggedIn
 		Ti.API.info 'Esta logado con facebook'
 		if Titanium.App.Properties.hasProperty("facebookUser")
@@ -16,14 +17,22 @@ root.loadUser = () ->
 			root.user.password = root.facebookUser.rlbPassword
 			root.user.firstName = root.facebookUser.first_name
 			root.user.lastName =  root.facebookUser.last_name
-			
+			root.fetchCreditsAsync()
 		else
 			Ti.API.info 'Esta logado con facebook pero no tenemos datos, hacemos logout'
 			Titanium.Facebook.logout()
+			root.creditsTab.badge = '+10'
 	else
 		Ti.API.info 'No tiene ni user ni esta logado con facebook, borramos todo'
 		Titanium.App.Properties.removeProperty("user")
 		Titanium.App.Properties.removeProperty("facebookUser")
+		root.creditsTab.badge = '+10'
+		
+root.loadRefererId = () ->
+	Ti.API.info '*** Entra en refererId'
+	if root.user.refererId is null or root.user.refererId is undefined or root.user.refererId.length < 2
+		Ti.API.info '*** El refererId es null'
+		root.fetchServerUser()
 		
 root.urlSignature = (url) ->
 	timestamp = new Date().getTime()

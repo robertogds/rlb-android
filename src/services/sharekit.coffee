@@ -1,18 +1,32 @@
-root.sharekit = require("com.0x82.sharekit")
-root.sharekit.configure
-	exclude_services: ['Delicious', 'GoogleReader', 'ReadItLater', 'Instapaper', 'Tumblr'],
-	my_app_name: 'ReallyLateBooking'
-	my_app_url: 'http://reallylatebooking.com'
-	shared_with_signature: false
-	twitter_consumer_key: 'qh0YsCgy4RyVPKciB9ID8A'
-	twitter_consumer_secret: 'gdbjx3TieKZbFnDa23JKvRWcfhL3tBc089pOeEtFaQ'
-	twitter_callback_url: 'http://reallylatebooking.com'
-	facebook_key: '210123832352906'
-	facebook_secret: '6b9d8250dbb6f8a1fc1698a6fcad7246'
-	facebook_use_session_proxy: false
-	facebook_session_proxy_url: ''
-	bar_style: 'UIBarStyleDefault'
-	
+root.shareToTwitter = (text) ->
+	try
+		Ti.API.info 'Entra en shareToTwitter'
+		intTwitter = Ti.Android.createIntent
+			action: Ti.Android.ACTION_SEND
+			packageName: "com.twitter.android"
+			className: "com.twitter.android.PostActivity"
+			flags: Ti.Android.FLAG_ACTIVITY_NEW_TASK
+			type: "text/plain"
+		intTwitter.putExtra( Ti.Android.EXTRA_TEXT, text)
+		Ti.Android.currentActivity.startActivity( intTwitter )
+	catch error 
+		alert 'Twitter app is not installed: ' + error
+
+
+root.shareToFB = () ->
+	try
+		Ti.API.info 'Entra en shareToFB'
+		intFB = Ti.Android.createIntent
+			action: Ti.Android.ACTION_SEND
+			packageName: "com.facebook.katana"
+			className: "com.facebook.katana.ShareLinkActivity"
+			flags: 0x30000000
+			type: "text/plain"
+		intFB.putExtra( Ti.Android.EXTRA_TEXT, "http://club.reallylatebooking.com") 
+		intFB.addCategory( Ti.Android.CATEGORY_LAUNCHER )
+		Ti.Android.currentActivity.startActivity( intFB )
+	catch error 
+		alert 'Facebook app is not installed: ' + error
 	
 	
 	
