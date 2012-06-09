@@ -9,10 +9,6 @@ root.noDealsView.add(root.closedCityView)
 root.noDealsView.add(root.waitingCityView)
 root.noDealsWindow.add(root.noDealsView)
 
-root.noDealsWindow.addEventListener 'close', (e) ->
-	myTimer.start()
-	myTimer.stop()
-
 countDown =  ( hours, minutes , seconds, fn_tick, fn_end  ) ->
 	totalSeconds:hours * 3600 + minutes * 60 + seconds
 	timer:this.timer
@@ -60,6 +56,7 @@ myTick = ()->
 	countDownLabel.text = leadingZero(myTimer.time.hours) + ":" + leadingZero(myTimer.time.minutes) + ":" + leadingZero(myTimer.time.seconds)
 	
 openCities = ()->
+	Ti.API.info '*** Llama a openCities'
 	root.noDealsWindow.close()
 	root.loadDeals(root.city)
 	
@@ -85,16 +82,28 @@ countDownLabel =  Titanium.UI.createLabel
 root.showNoDeals = (timeToOpen)->
 	Ti.API.info 'entra en shownodeals con ' + timeToOpen
 	if timeToOpen is undefined
-		root.noDealsView.add(countDownLabel)
+		#root.noDealsView.add(countDownLabel)
 		root.noDealsView.remove(countDownLabel)
+		countDownLabel.visible = false
 		root.waitingCityView.visible = false
 		root.closedCityView.visible = true
 	else
 		Ti.API.info 'entre en waiting city'
 		root.noDealsView.add(countDownLabel)
+		countDownLabel.visible = true
 		root.closedCityView.visible = false
 		root.waitingCityView.visible = true
 		myTimer.set(parseInt(timeToOpen/1000))
 		myTimer.start()
 	#root.hideLoading()
 	root.tabGroup.tabs[root.dealsTab.pos].open(root.noDealsWindow,{animated:true})
+	
+	
+root.noDealsWindow.addEventListener 'close', (e) ->
+	Ti.API.info 'Entra en nodeals close'
+	if root.waitingCityView.visible is true
+		Ti.API.info 'Entra en waiting visible'
+		myTimer.stop()
+		Ti.API.info 'Sale de waiting visible'
+	root.noDealsWindow.close()
+	root.hideLoading()
