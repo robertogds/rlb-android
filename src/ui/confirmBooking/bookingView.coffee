@@ -171,14 +171,15 @@ nonRefundableLabel = Titanium.UI.createLabel
 		fontWeight: 'bold'
 
 root.doZoozPayment = ()->
+	Ti.API.info 'Entra en pago con email: ' + root.user.email
 	zoozmodule = require('com.zooz.ti')
 	zoozmodule.doPayment
 		data:
 			amount: root.priceFinal + 0.001
 			currencyCode: "EUR"
-			appKey: "4b71ac79-9338-4cc0-91ad-220572fd54b3"
+			appKey: "0df397d3-8f7c-43d9-bf1e-61f2e255d0b1"
 			isSandbox: false
-			email: ''
+			userEmail: root.user.email
 			
 		success: (data) ->
 			Ti.API.info 'Result success!'

@@ -1,7 +1,7 @@
 title = L('forHotelsTitle')
 text = L('forHotelsText')
 
-forHotelsView =  new root.GenericTextView(0,title,text).view
+forHotelsView = new root.GenericTextView(0,title,text).view
 
 contactView = new root.Generic2RowsView(200,'hoteles@reallylatebooking.com','Llamar ')
 contactView.table.height = 44

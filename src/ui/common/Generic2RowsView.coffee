@@ -13,8 +13,8 @@ class Generic2RowsView
 			moving: false
 			backgroundColor: '#fff'
 		@label1 = Titanium.UI.createLabel
-			width: '100%'
-			height: '100%'
+			width: Ti.UI.FILL
+			height: Ti.UI.FILL
 			borderWidth: 0
 			text: text1
 			color: '#000'
@@ -24,8 +24,8 @@ class Generic2RowsView
 				fontSize: 15
 				fontWeight: 'bold'
 		@label2 = Titanium.UI.createLabel
-			width: '100%'
-			height: '100%'
+			width: Ti.UI.FILL
+			height: Ti.UI.FILL
 			text: text2 
 			color: '#000'
 			backgroundColor: '#fff'

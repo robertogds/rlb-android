@@ -10,6 +10,8 @@ root.bookingsLastUpdate = new Date(900000)
 root.cell = {}
 root.listCities = []
 root.fetchCitiesCaller = 'GPS'
+root.ancho = Ti.Platform.displayCaps.platformWidth
+root.anchoCities = Math.round(Ti.Platform.displayCaps.platformWidth / 3)
 
 Ti.Gesture.addEventListener 'orientationchange', (e) ->
 	Ti.Android.currentActivity.setRequestedOrientation(Ti.Android.SCREEN_ORIENTATION_PORTRAIT)

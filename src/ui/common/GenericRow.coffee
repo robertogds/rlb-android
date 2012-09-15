@@ -1,8 +1,8 @@
 class GenericRow
 	constructor: (text) ->
 		@label = Titanium.UI.createLabel
-			width: '100%'
-			height: '100%'
+			width: Ti.UI.FILL
+			height: Ti.UI.FILL
 			text: text
 			left: 8
 			color: '#000'
@@ -13,7 +13,7 @@ class GenericRow
 		@row = Titanium.UI.createTableViewRow
 			hasChild:true
 			rightImage: '/images/right_arrow3.png'
-			width: '100%'
+			width: Ti.UI.FILL
 			height: 44
 		@row.add(@label)
 root.GenericRow = GenericRow

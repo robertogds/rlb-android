@@ -4,15 +4,15 @@ class CityCell
 			image: city.image
 			city: city
 			left: left 
-			width: 105
-			height: 105
+			width: root.anchoCities - 2
+			height: root.anchoCities - 2
 			open: false
 			top:0
 		@inactiveView = Titanium.UI.createView
 			backgroundColor : '#0d1e28'
 			opacity: 1
-			height: 107
-			width: 107
+			height: root.anchoCities
+			width: root.anchoCities
 			visible: false
 			top: 0
 			left: left
@@ -23,7 +23,7 @@ class CityCell
 			width: '90%'
 			backgroundColor : '#0d1e28'
 			textAlign: 'center'
-			height: 107
+			height: root.anchoCities
 			top: 0
 			color: '#d3d3d3'
 			font:
@@ -34,8 +34,8 @@ class CityCell
 		borderView = Titanium.UI.createView
 			backgroundColor : 'black'
 			color: 'black'
-			height: 107
-			width: 107
+			height: root.anchoCities
+			width: root.anchoCities
 			visible: true
 			top: 0
 			left: left
@@ -49,7 +49,7 @@ class CityCell
 				fontWeight: 'bold'
 			left: left 
 			height:18
-			width:107
+			width:root.anchoCities
 			top: 88
 
 		@cityBarLabel = Titanium.UI.createLabel
@@ -59,7 +59,7 @@ class CityCell
 			color: '#fff'
 			left: left
 			height: 18
-			width: 107
+			width: root.anchoCities
 			top: 89
 
 		row.add(borderView)
@@ -80,4 +80,3 @@ class CityCell
 			root.loadDeals(e.source.city)
 		
 root.cityCell = CityCell
-	

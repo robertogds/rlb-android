@@ -8,6 +8,8 @@ root.allCitiesTable = Titanium.UI.createTableView
 	backgroundColor: 'transparent'
 	separatorColor: '#1b3c50'
 
+root.allCitiesTable.setData([Ti.UI.createTableViewRow({title:'Loading...'})])
+
 root.allCitiesWindow.add(root.allCitiesTable)
 
 root.allCitiesTable.addEventListener 'click', (e) ->
@@ -15,6 +17,9 @@ root.allCitiesTable.addEventListener 'click', (e) ->
 	root.loadDeals(e.row.city)	
 
 root.populateCitiesTable = (cities) ->
+	Ti.API.info '*** Ti.Platform.displayCaps.platformHeight: ' + Ti.Platform.displayCaps.platformHeight
+	Ti.API.info '*** Ti.Platform.displayCaps.platformWidth: ' + Ti.Platform.displayCaps.platformWidth
+	root.allCitiesTable.setData([Ti.UI.createTableViewRow({title:'Loading...'})])
 	Ti.API.info 'Entra en all cities'
 	data = []	
 	lastName = "empty"

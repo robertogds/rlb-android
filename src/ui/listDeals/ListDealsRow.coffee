@@ -5,7 +5,8 @@ class ListDealsRow
 			#hasChild: true
 			#rightImage: '/images/blue_arrow.png'
 			identionLevel: 200
-			height: 120
+			width: root.ancho
+			#height: 120
 			selectionStyle: 'none'
 			backgroundGradient:
 				type:'linear'
@@ -19,8 +20,8 @@ class ListDealsRow
 			image: deal.mainImageBig
 			borderRadius: 0
 			left: 0
-			width: 320
-			height: 120
+			width: root.ancho
+			#height: 120
 		@row.add(image)
 		
 		hotelBarLabel = Titanium.UI.createLabel
@@ -30,7 +31,7 @@ class ListDealsRow
 			color: '#fff'
 			left: 0
 			height: 20
-			width: 320
+			width: root.ancho
 			top: 0
 		@row.add(hotelBarLabel)
 		

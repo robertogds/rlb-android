@@ -37,6 +37,7 @@ getNearCity = (lat,lon) ->
 		Ti.API.info '+++ GPS Encontrada NEARCITY = ' + nearCity.name
 		root.loadDeals(nearCity)
 	else 
+		root.hideLoading(root.citiesWindow)
 		Ti.UI.createAlertDialog({title:'ReallyLateBooking',message:L('noDealsGPS')}).show()
 
 translateErrorCode = (code) ->
@@ -53,13 +54,14 @@ translateErrorCode = (code) ->
 
 root.initializeGPS = () ->
 	Ti.API.info 'START******* Entra en initializeGPS'
-	root.showLoading(root.citiesWindow,'Getting GPS Location')
+	root.showLoading(root.citiesWindow,L('gps_location'))
 	root.isGPS = true
 	if Titanium.Geolocation.locationServicesEnabled is false
 		Ti.API.info 'Entra en geo off'
 		Titanium.UI.createAlertDialog({title:'ReallyLateBooking',message:L('geoOff')}).show()
 		return root.hideLoading(root.citiesWindow)
-	root.getGPSData()	
+	else
+		root.getGPSData()	
 
 
 root.getGPSData = () ->
@@ -74,18 +76,20 @@ root.getGPSData = () ->
 			root.hideLoading(root.citiesWindow)
 			Ti.API.info 'START ******* ERROR en getGPSData'
 			return
-		longitude = e.coords.longitude
-		latitude = e.coords.latitude
-		altitude = e.coords.altitude
-		heading = e.coords.heading
-		accuracy = e.coords.accuracy
-		speed = e.coords.speed
-		timestamp = e.coords.timestamp
-		altitudeAccuracy = e.coords.altitudeAccuracy
-		Ti.API.info('speed ' + speed)
-		Ti.API.info('long:' + longitude + ' lat: ' + latitude)
-		getNearCity(latitude,longitude)
-		Titanium.API.info('geo - current location: ' + new Date(timestamp) + ' long ' + longitude + ' lat ' + latitude + ' accuracy ' + accuracy)
-		locationAdded = true
-		Ti.API.info 'START******* Termina getGPSData'
+		else
+			longitude = e.coords.longitude
+			latitude = e.coords.latitude
+			altitude = e.coords.altitude
+			heading = e.coords.heading
+			accuracy = e.coords.accuracy
+			speed = e.coords.speed
+			timestamp = e.coords.timestamp
+			altitudeAccuracy = e.coords.altitudeAccuracy
+			Ti.API.info('speed ' + speed)
+			Ti.API.info('long:' + longitude + ' lat: ' + latitude)
+			getNearCity(latitude,longitude)
+			Titanium.API.info('geo - current location: ' + new Date(timestamp) + ' long ' + longitude + ' lat ' + latitude + ' accuracy ' + accuracy)
+			locationAdded = true
+			#root.hideLoading(root.citiesWindow)
+			Ti.API.info 'START******* Termina getGPSData'
 		
